@@ -22,6 +22,10 @@ config.font_size = 11.0
 -- tabs
 config.enable_tab_bar = false
 
+-- size
+config.initial_rows = 50
+config.initial_cols = 180
+
 
 -- padding
 config.window_padding = {
