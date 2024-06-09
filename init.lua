@@ -13,6 +13,8 @@ vim.opt.backspace = indent,eol,start
 -- NOTE this should be enabled by default
 vim.cmd('filetype plugin indent on')
 
+-- disable mouse
+vim.opt.mouse = ''
 
 vim.opt.history = 1000
 
