@@ -1,0 +1,9 @@
+snippet flags
+    var someString string
+    var someInt int
+    var someBool bool
+
+    flag.StringVar(&someString, "s", someString, "someString help")
+    flag.IntVar(&someInt, "i", someInt, "someInt help")
+    flag.BoolVar(&someBool, "b", someBool, "someBool help")
+    flag.Parse()
