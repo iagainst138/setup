@@ -16,7 +16,12 @@ config.font = wezterm.font('Monospace', {
     -- weight = 'Bold',
     -- italic = true,
 })
-config.font_size = 11.0
+if wezterm.hostname() == 'grizz' then
+    -- use larger font on laptop
+    config.font_size = 11.0
+else
+    config.font_size = 10.0
+end
 
 
 -- tabs
