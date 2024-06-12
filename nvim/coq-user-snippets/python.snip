@@ -1,0 +1,16 @@
+snippet args
+    a = argparse.ArgumentParser()
+    a.add_argument('-n', '--num', required=True, help='num')
+    args = a.parse_args()
+
+
+snippet entry
+    #!/usr/bin/env python3
+
+    import argparse
+
+
+    if __name__ == '__main__':
+        a = argparse.ArgumentParser()
+        a.add_argument('-n', '--num', required=True, help='num')
+        args = a.parse_args()

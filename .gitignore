@@ -1,2 +1,2 @@
-undodir/*
+nvim/undodir/*
 lazy-lock.json
