@@ -24,6 +24,7 @@ vim.cmd('set laststatus=0 ruler')
 
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
+vim.opt.inccommand = "split"
 vim.opt.hidden = true
 -- set backspace to clear hlsearch
 vim.cmd('nmap <silent> <BS>  :nohlsearch<CR>')
