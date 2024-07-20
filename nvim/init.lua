@@ -76,6 +76,10 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 -- vim.opt.relativenumber = true
 -- vim.opt.number = true
 
+-- colorscheme
+vim.cmd('colorscheme molokai')
+-- vim.cmd('colorscheme monokai-pro-classic')
+
 -- treat some file differently
 vim.cmd('autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4')
 vim.cmd('autocmd BufNewFile,BufRead Vagrantfile setlocal ts=2 sw=2 sts=2')
@@ -86,7 +90,7 @@ vim.cmd('autocmd BufRead,BufNewFile *.md setlocal ts=2 sw=2 sts=2')
 -- highlight nbsp and trailing whitespace
 vim.cmd('autocmd BufNewFile,BufRead * highlight nbsp ctermbg=Red')
 vim.cmd('autocmd BufNewFile,BufRead * match nbsp "[\xc2\xa0]"')
-vim.cmd('autocmd BufNewFile,BufRead * highlight trailing_spaces ctermbg=Red')
+vim.cmd('autocmd BufNewFile,BufRead * highlight trailing_spaces ctermbg=Red guibg=#ff0000')
 vim.cmd('autocmd BufNewFile,BufRead * match trailing_spaces /\\s\\+$/')
 
 
@@ -174,10 +178,6 @@ require("lazy").setup({
     },
   })
 
-
--- colorscheme
-vim.cmd('colorscheme molokai')
--- vim.cmd('colorscheme monokai-pro-classic')
 
 -- nvim-telescope
 local telescope_builtin = require('telescope.builtin')
