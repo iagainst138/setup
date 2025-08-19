@@ -169,6 +169,9 @@ require("lazy").setup({
       init = function()
         vim.g.coq_settings = {
             auto_start = 'shut-up', -- can also be true if you want to start COQ at startup
+            keymap = {
+                ['repeat'] = "+",
+            },
             -- Your COQ settings here
         }
       end,
@@ -519,3 +522,5 @@ lspconfig.gopls.setup {
     },
   },
 }
+
+vim.api.nvim_set_keymap('n', '-', '+dw', {})
