@@ -1,6 +1,7 @@
 -- https://github.com/saahiluppal/configfiles/blob/main/nvim/init.lua
 
 -- vim.opt.exrc = true
+--
 
 vim.opt.background = dark
 vim.opt.tabstop = 4
@@ -29,7 +30,8 @@ vim.opt.hidden = true
 -- set backspace to clear hlsearch
 vim.cmd('nmap <silent> <BS>  :nohlsearch<CR>')
 
--- vim.opt.completeopt = { "menu" , "menuone" , "noselect" }
+vim.opt.completeopt = { "menu" , "menuone" , "noselect" }
+vim.diagnostic.config({ virtual_text = true })
 
 -- vim.opt.wrap = false
 -- vim.opt.swapfile = false
@@ -82,6 +84,7 @@ vim.cmd('colorscheme molokai')
 
 -- treat some file differently
 vim.cmd('autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4')
+vim.cmd('autocmd BufNewFile,BufRead *.note setlocal noet ts=2 sw=2 sts=2')
 vim.cmd('autocmd BufNewFile,BufRead Vagrantfile setlocal ts=2 sw=2 sts=2')
 vim.cmd('autocmd BufRead,BufNewFile *.yml,*.yaml setlocal ts=2 sw=2 sts=2')
 vim.cmd('autocmd BufRead,BufNewFile *.json setlocal ts=2 sw=2 sts=2')
@@ -118,9 +121,9 @@ require("lazy").setup({
     { 'nvim-telescope/telescope.nvim', tag = '0.1.6', dependencies = { 'nvim-lua/plenary.nvim'} },
     { 'airblade/vim-gitgutter' },
     { 'tpope/vim-fugitive', tag = 'v3.7' },
-    { 'fatih/vim-go', tag = 'v1.28' },
-    { 'williamboman/mason.nvim', tag = 'v1.10.0' },
-    { 'williamboman/mason-lspconfig.nvim', tag = 'v1.29.0' },
+    { 'fatih/vim-go', tag = 'v1.29' },
+    { 'williamboman/mason.nvim', tag = 'v1.11.0' },
+    { 'williamboman/mason-lspconfig.nvim', tag = 'v1.32.0' },
     --{ 'catppuccin/nvim', name = 'catppuccin', priority = 1000 , tag = 'v1.7.0' },
     --{ 'rebelot/kanagawa.nvim', name = 'kanagawa', priority = 1000 },
     { 'loctvl842/monokai-pro.nvim', name = 'monokai', priority = 1000 },
@@ -169,6 +172,9 @@ require("lazy").setup({
       init = function()
         vim.g.coq_settings = {
             auto_start = 'shut-up', -- can also be true if you want to start COQ at startup
+            completion = {
+                always = true,
+            },
             keymap = {
                 ['repeat'] = "+",
             },
@@ -498,29 +504,42 @@ require("mason-lspconfig").setup {
     automatic_installation = true,
 }
 
+-- gd for python
+vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
 
 -- LSP setup
 -- NOTE ensure node is installed with the following - https://nodejs.org/en/download/package-manager
 -- Temp fix - npm config set strict-ssl false
-lspconfig = require('lspconfig')
+ lspconfig = require('lspconfig')
 
-lspconfig.pyright.setup {}
+ lspconfig.pyright.setup {
+     on_attach = on_attach,
+     capabilities = capabilities,
+     --settings={
+     --    python = {
+     --        pythonPath="/opt/homebrew/bin/python3"
+     --    },
+     --    pyright = {}
+     --}
+ }
 
-lspconfig.gopls.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  cmd = {"gopls"},
-  filetypes = { "go", "gomod", "gowork", "gotmpl" },
-  --root_dir = util.root_pattern("go.work", "go.mod", ".git"),
-  settings = {
-    gopls = {
-      completeUnimported = true,
-      usePlaceholders = true,
-      analyses = {
-        unusedparams = true,
-      },
-    },
-  },
-}
+ lspconfig.gopls.setup {
+   on_attach = on_attach,
+   capabilities = capabilities,
+   cmd = {"gopls"},
+   filetypes = { "go", "gomod", "gowork", "gotmpl" },
+   --root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+   settings = {
+     gopls = {
+       completeUnimported = true,
+       usePlaceholders = false,
+       analyses = {
+         unusedparams = true,
+       },
+     },
+   },
+ }
+
+-- vim.lsp.enable({ "gopls"})
 
 vim.api.nvim_set_keymap('n', '-', '+dw', {})
