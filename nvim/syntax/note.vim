@@ -1,9 +1,9 @@
 syntax match NoteHeader /^\*\*\* .* \*\*\*$/
 syntax match NoteHeader /^# .*$/
 syntax match NoteBullet /^\s.\{-}[-\*] /
-syntax match NoteQuestion /^[a-zA-Z].*?$/
+syntax match NoteQuestion /[a-zA-Z0-9,\- ]*?/
 syntax match NoteUser /@[a-zA-Z0-9_]\{}/
-syntax match NoteImportant /'[a-zA-Z0-9_]\{}'/
+syntax match NoteImportant /'.\{-}'/
 
 highlight NoteHeader ctermfg=green guifg=#00ff00 "ctermbg=white guibg=#eefbfd
 "highlight NoteBullet ctermfg=cyan guifg=#00ffff "ctermbg=white guibg=#eefbfd
